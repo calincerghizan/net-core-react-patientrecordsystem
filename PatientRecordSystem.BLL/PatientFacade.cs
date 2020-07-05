@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.DAL;
+using PatientRecordSystem.DAL.Interfaces;
 
 namespace PatientRecordSystem.BLL
 {

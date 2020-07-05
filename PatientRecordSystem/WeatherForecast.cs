@@ -1,6 +1,6 @@
 using System;
 
-namespace PatientRecordSystem
+namespace PatientRecordSystem.Api
 {
     public class WeatherForecast
     {

@@ -7,6 +7,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PatientRecordSystem.BLL;
+using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.BLL.Models;
 
 namespace PatientRecordSystem.Api.Controllers

@@ -1,11 +1,9 @@
-﻿using PatientRecordSystem.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using PatientRecordSystem.DAL.Entities;
 using PatientRecordSystem.DAL.Models;
 
-namespace PatientRecordSystem.DAL
+namespace PatientRecordSystem.DAL.Interfaces
 {
     public interface IRecordRepository
     {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using PatientRecordSystem.BLL;
+using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.BLL.Models;
 
 namespace PatientRecordSystem.Api.Controllers

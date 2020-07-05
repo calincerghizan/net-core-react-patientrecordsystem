@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using PatientRecordSystem.BLL.Models;
 
-namespace PatientRecordSystem.BLL
+namespace PatientRecordSystem.BLL.Interfaces
 {
     public interface IReportFacade
     {

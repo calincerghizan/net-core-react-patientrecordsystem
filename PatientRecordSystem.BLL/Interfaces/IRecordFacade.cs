@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using PatientRecordSystem.BLL.Models;
 
-namespace PatientRecordSystem.BLL
+namespace PatientRecordSystem.BLL.Interfaces
 {
     public interface IRecordFacade
     {

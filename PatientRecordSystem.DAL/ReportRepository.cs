@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using PatientRecordSystem.DAL.Interfaces;
 using PatientRecordSystem.DAL.Models;
 
 namespace PatientRecordSystem.DAL

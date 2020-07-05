@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using PatientRecordSystem.DAL.Entities;
+using PatientRecordSystem.DAL.Interfaces;
 using PatientRecordSystem.DAL.Models;
 
 namespace PatientRecordSystem.DAL

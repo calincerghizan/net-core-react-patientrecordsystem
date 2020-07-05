@@ -7,7 +7,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PatientRecordSystem.BLL;
+using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.DAL;
+using PatientRecordSystem.DAL.Interfaces;
 
 namespace PatientRecordSystem.Api
 {

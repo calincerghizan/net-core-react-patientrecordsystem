@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using PatientRecordSystem.BLL.Models;
+using PatientRecordSystem.DAL.Entities;
+using PatientRecordSystem.DAL.Models;
 
-namespace PatientRecordSystem.BLL
+namespace PatientRecordSystem.DAL.Interfaces
 {
-    public interface IPatientFacade
+    public interface IPatientRepository
     {
         /// <summary>
         /// Gets a patient for a given id
@@ -29,11 +28,8 @@ namespace PatientRecordSystem.BLL
         Task<Patient> CreatePatient(Patient patient);
 
         /// <summary>
-        /// Updates an existing patient
+        /// Commits the changes
         /// </summary>
-        /// <param name="patientToBeUpdated">The patient to be updated</param>
-        /// <param name="patient">The patient model containing the new data to update</param>
-        /// <returns>The updated patient</returns>
-        Task UpdatePatient(Patient patientToBeUpdated, Patient patient);
+        Task<int> UpdatePatient(Patient patient);
     }
 }
