@@ -1,0 +1,12 @@
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\obj\Debug\netcoreapp3.1\PatientRecordSystem.Data.csprojAssemblyReference.cache
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\obj\Debug\netcoreapp3.1\PatientRecordSystem.Data.AssemblyInfoInputs.cache
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\obj\Debug\netcoreapp3.1\PatientRecordSystem.Data.AssemblyInfo.cs
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\obj\Debug\netcoreapp3.1\PatientRecordSystem.Data.csproj.CoreCompileInputs.cache
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\bin\Debug\netcoreapp3.1\PatientRecordSystem.Data.deps.json
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\bin\Debug\netcoreapp3.1\PatientRecordSystem.Data.dll
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\bin\Debug\netcoreapp3.1\PatientRecordSystem.Data.pdb
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\bin\Debug\netcoreapp3.1\PatientRecordSystem.Core.dll
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\bin\Debug\netcoreapp3.1\PatientRecordSystem.Core.pdb
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\obj\Debug\netcoreapp3.1\PatientRecordSystem.Data.csproj.CopyComplete
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\obj\Debug\netcoreapp3.1\PatientRecordSystem.Data.dll
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Data\obj\Debug\netcoreapp3.1\PatientRecordSystem.Data.pdb

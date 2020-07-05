@@ -1,0 +1,8 @@
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\bin\Debug\netcoreapp3.1\PatientRecordSystem.Core.deps.json
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\bin\Debug\netcoreapp3.1\PatientRecordSystem.Core.dll
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\bin\Debug\netcoreapp3.1\PatientRecordSystem.Core.pdb
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\obj\Debug\netcoreapp3.1\PatientRecordSystem.Core.AssemblyInfoInputs.cache
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\obj\Debug\netcoreapp3.1\PatientRecordSystem.Core.AssemblyInfo.cs
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\obj\Debug\netcoreapp3.1\PatientRecordSystem.Core.csproj.CoreCompileInputs.cache
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\obj\Debug\netcoreapp3.1\PatientRecordSystem.Core.dll
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\PatientRecordSystem\PatientRecordSystem.Core\obj\Debug\netcoreapp3.1\PatientRecordSystem.Core.pdb
