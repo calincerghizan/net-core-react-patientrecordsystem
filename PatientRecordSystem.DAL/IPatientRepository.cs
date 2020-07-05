@@ -17,6 +17,12 @@ namespace PatientRecordSystem.DAL
         Task<Patient> GetPatientById(int id);
 
         /// <summary>
+        /// Gets all the patients
+        /// </summary>
+        /// <returns>The list of patients</returns>
+        Task<List<ListedPatient>> GetPatients();
+
+        /// <summary>
         /// Adds a new patient in the database
         /// </summary>
         /// <param name="patient">The patient model containing the data to insert</param>
@@ -27,11 +33,5 @@ namespace PatientRecordSystem.DAL
         /// Commits the changes
         /// </summary>
         Task<int> UpdatePatient(Patient patient);
-
-        /// <summary>
-        /// Gets all the patients
-        /// </summary>
-        /// <returns>The list of patients</returns>
-        Task<List<ListedPatient>> GetPatients();
     }
 }

@@ -23,6 +23,18 @@ namespace PatientRecordSystem.Api.Controllers
         }
 
         /// <summary>
+        /// Gets all the patients
+        /// </summary>
+        /// <returns>The list of patients</returns>
+        [HttpGet("")]
+        public async Task<ActionResult<List<ListedPatient>>> GetPatients()
+        {
+            var patientList = await _patientFacade.GetPatients();
+
+            return Ok(patientList);
+        }
+
+        /// <summary>
         /// Gets the patient with the given {id}
         /// </summary>
         /// <param name="id">The patient id</param>
@@ -80,14 +92,6 @@ namespace PatientRecordSystem.Api.Controllers
                 return new StatusCodeResult(StatusCodes.Status404NotFound);
 
             return Ok(updatedPatient);
-        }
-
-        [HttpGet("")]
-        public async Task<ActionResult<List<ListedPatient>>> GetPatients()
-        {
-            var patientList = await _patientFacade.GetPatients();
-
-            return Ok(patientList);
         }
     }
 }

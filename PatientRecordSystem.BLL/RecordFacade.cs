@@ -20,6 +20,27 @@ namespace PatientRecordSystem.BLL
             _mapper = mapper;
         }
 
+        ///<inheritdoc/>
+        public async Task<Record> GetRecordById(int id)
+        {
+            var dalRecord = await _recordRepository.GetRecordById(id);
+
+            var record = _mapper.Map<DAL.Entities.Record, Record>(dalRecord);
+
+            return record;
+        }
+
+        ///<inheritdoc/>
+        public async Task<List<ListedRecord>> GetRecords()
+        {
+            var dalRecordList = await _recordRepository.GetRecords();
+
+            var recordList = _mapper.Map<List<DAL.Models.ListedRecord>, List<ListedRecord>>(dalRecordList);
+
+            return recordList;
+        }
+
+        ///<inheritdoc/>
         public async Task<Record> CreateRecord(Record record)
         {
             var dalRecord = _mapper.Map<Record, DAL.Entities.Record>(record);
@@ -33,18 +54,17 @@ namespace PatientRecordSystem.BLL
             return bllRecord;
         }
 
+        ///<inheritdoc/>
         public async Task UpdateRecord(Record recordToBeUpdated, Record record)
         {
-            throw new NotImplementedException();
-        }
+            var dalRecordToBeUpdated = _mapper.Map<Record, DAL.Entities.Record>(recordToBeUpdated);
 
-        public async Task<List<ListedRecord>> GetRecords()
-        {
-            var dalRecordList = await _recordRepository.GetRecords();
+            dalRecordToBeUpdated.DiseaseName = record.DiseaseName;
+            dalRecordToBeUpdated.TimeOfEntry = record.TimeOfEntry ?? DateTime.Now;
+            dalRecordToBeUpdated.Description = record.Description;
+            dalRecordToBeUpdated.Bill = record.Bill;
 
-            var recordList = _mapper.Map<List<DAL.Models.ListedRecord>, List<ListedRecord>>(dalRecordList);
-
-            return recordList;
+            await _recordRepository.UpdateRecord(dalRecordToBeUpdated);
         }
     }
 }

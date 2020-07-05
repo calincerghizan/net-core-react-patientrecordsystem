@@ -17,6 +17,12 @@ namespace PatientRecordSystem.DAL
         Task<Record> GetRecordById(int id);
 
         /// <summary>
+        /// Gets all the records
+        /// </summary>
+        /// <returns>The list of records</returns>
+        Task<List<ListedRecord>> GetRecords();
+
+        /// <summary>
         /// Adds a new record in the database
         /// </summary>
         /// <param name="record">The record model containing the data to insert</param>
@@ -26,15 +32,8 @@ namespace PatientRecordSystem.DAL
         /// <summary>
         /// Updates an existing record
         /// </summary>
-        /// <param name="recordToBeUpdated">The record to be updated</param>
         /// <param name="record">The record model containing the new data to update</param>
         /// <returns>The updated record</returns>
-        Task UpdateRecord(Record recordToBeUpdated, Record record);
-
-        /// <summary>
-        /// Gets all the records
-        /// </summary>
-        /// <returns>The list of records</returns>
-        Task<List<ListedRecord>> GetRecords();
+        Task<int> UpdateRecord(Record record);
     }
 }

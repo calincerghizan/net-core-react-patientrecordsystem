@@ -31,6 +31,18 @@ namespace PatientRecordSystem.BLL
         }
 
         ///<inheritdoc/>
+        public async Task<List<ListedPatient>> GetPatients()
+        {
+            // TODO: Add pagination with size of the page, page number (if not provided, default values), sorting by all columns
+
+            var dalPatientList = await _patientRepository.GetPatients();
+
+            var patientList = _mapper.Map<List<DAL.Models.ListedPatient>, List<ListedPatient>>(dalPatientList);
+
+            return patientList;
+        }
+
+        ///<inheritdoc/>
         public async Task<Patient> CreatePatient(Patient patient)
         {
             var dalPatient = _mapper.Map<Patient, DAL.Entities.Patient>(patient);
@@ -71,23 +83,10 @@ namespace PatientRecordSystem.BLL
                 for (var i = metaDataAux.Count; i < dalPatient.MetaData.Count; i++)
                 {
                     dalPatientToBeUpdated.MetaData[i].PatientId = dalPatient.MetaData[0].PatientId;
-                    //dalPatientToBeUpdated.MetaData[i].Patient = dalPatient.MetaData[0].Patient;
                 }
             }
 
             await _patientRepository.UpdatePatient(dalPatientToBeUpdated);
-        }
-
-        ///<inheritdoc/>
-        public async Task<List<ListedPatient>> GetPatients()
-        {
-            // TODO: Add pagination with size of the page, page number (if not provided, default values), sorting by all columns
-
-            var dalPatientList = await _patientRepository.GetPatients();
-
-            var patientList = _mapper.Map<List<DAL.Models.ListedPatient>, List<ListedPatient>>(dalPatientList);
-
-            return patientList;
         }
     }
 }

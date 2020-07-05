@@ -48,9 +48,13 @@ namespace PatientRecordSystem.DAL
         }
 
         ///<inheritdoc/>
-        public async Task UpdateRecord(Record recordToBeUpdated, Record record)
+        public async Task<int> UpdateRecord(Record record)
         {
-            throw new NotImplementedException();
+            var currentRecord = _applicationDbContext.Records.FirstOrDefault(x => x.Id == record.Id);
+
+            _applicationDbContext.Entry(currentRecord).CurrentValues.SetValues(record);
+
+            return await _applicationDbContext.SaveChangesAsync();
         }
     }
 }

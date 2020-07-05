@@ -29,6 +29,20 @@ namespace PatientRecordSystem.DAL
             return patient;
         }
 
+        public async Task<List<ListedPatient>> GetPatients()
+        {
+            var patients = await _applicationDbContext.ListedPatients
+                .FromSqlRaw(@"SELECT p.Id, p.Name, p.DateOfBirth, MAX(r.TimeOfEntry) AS LastEntry, COUNT(m.Id) AS MetaDataCount
+                            FROM Patients p
+                            LEFT JOIN MetaData m
+                            ON p.Id = m.PatientId
+                            LEFT JOIN Records r
+                            ON p.Id = r.PatientId
+                            GROUP BY p.Id, p.Name, p.DateOfBirth").ToListAsync();
+
+            return patients;
+        }
+
         ///<inheritdoc/>
         public async Task<Patient> CreatePatient(Patient patient)
         {
@@ -43,7 +57,6 @@ namespace PatientRecordSystem.DAL
         {
             var currentPatient = _applicationDbContext.Patients.FirstOrDefault(x => x.Id == patient.Id);
             var currentMetaDataList = _applicationDbContext.MetaData.Where(x => x.PatientId == patient.Id).ToList();
-
 
             _applicationDbContext.Entry(currentPatient).CurrentValues.SetValues(patient);
 
@@ -60,20 +73,6 @@ namespace PatientRecordSystem.DAL
             }
 
             return await _applicationDbContext.SaveChangesAsync();
-        }
-
-        public async Task<List<ListedPatient>> GetPatients()
-        {
-            var patients = await _applicationDbContext.ListedPatients
-                .FromSqlRaw(@"SELECT p.Id, p.Name, p.DateOfBirth, MAX(r.TimeOfEntry) AS LastEntry, COUNT(m.Id) AS MetaDataCount
-                            FROM Patients p
-                            LEFT JOIN MetaData m
-                            ON p.Id = m.PatientId
-                            LEFT JOIN Records r
-                            ON p.Id = r.PatientId
-                            GROUP BY p.Id, p.Name, p.DateOfBirth").ToListAsync();
-
-            return patients;
         }
     }
 }
