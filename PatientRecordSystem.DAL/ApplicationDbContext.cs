@@ -19,6 +19,8 @@ namespace PatientRecordSystem.DAL
 
         public DbSet<ListedRecord> ListedRecords { get; set; }
 
+        public DbQuery<PatientReport> PatientReports { get; set; }
+
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { }

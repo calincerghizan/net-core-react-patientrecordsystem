@@ -11,15 +11,15 @@ namespace PatientRecordSystem.DAL.Models
 
         public string Name { get; set; }
 
-        public int Age { get; set; }
+        public int? Age { get; set; }
 
         public decimal BillsAverage { get; set; }
 
-        public decimal BillsAverageNoOutliner { get; set; }
+        //public decimal BillsAverageNoOutlier { get; set; }
 
         public Record FifthRecord { get; set; }
 
-        public List<Patient> PatientWithSimilarDiseases { get; set; }
+        public List<Patient> PatientsWithSimilarDiseases { get; set; }
 
         public string MonthWithMaxVisits { get; set; }
 

@@ -25,7 +25,11 @@ namespace PatientRecordSystem.BLL
         ///<inheritdoc/>
         public async Task<PatientReport> GetPatientReport(int id)
         {
-            throw new NotImplementedException();
+            var dalPatientReport = await _reportRepository.GetPatientReport(id);
+
+            var patientReport = _mapper.Map<DAL.Models.PatientReport, PatientReport>(dalPatientReport);
+
+            return patientReport;
         }
 
         ///<inheritdoc/>
