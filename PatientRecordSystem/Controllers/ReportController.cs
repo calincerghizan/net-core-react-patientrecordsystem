@@ -30,7 +30,7 @@ namespace PatientRecordSystem.Api.Controllers
         }
 
         [HttpGet("Meta")]
-        public async Task<ActionResult<PatientReport>> GetMetaReport()
+        public async Task<ActionResult<MetaReport>> GetMetaReport()
         {
             var metaReport = await _reportFacade.GetMetaReport();
 
