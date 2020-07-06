@@ -31,7 +31,7 @@ namespace PatientRecordSystem.DAL
                 .FromSqlRaw(@"SELECT p.Id, p.Name, DATEDIFF(yy, 
                                 CONVERT(DATETIME, p.DateOfBirth), GETDATE()) AS Age, 
                                 CAST(AVG(r.Bill) AS DECIMAL(8, 2)) AS BillsAverage, 
-                                null AS FifthRecordId, null AS MonthWithMaxVisits
+                                null AS FifthRecordId, null AS MonthWithMaxVisits, null as BillsAverageNoOutlier
                             FROM Patients p
                             JOIN Records r
                             ON p.Id = r.PatientId
@@ -44,7 +44,8 @@ namespace PatientRecordSystem.DAL
             patientReport.Age = patientReportInit.Age;
             patientReport.BillsAverage = patientReportInit.BillsAverage;
 
-            //TODO: BillsAverageNoOutlier
+            // BillsAverageNoOutlier
+            patientReport.BillsAverageNoOutlier = await BillsAverageNoOutlier(id);
 
             // FifthRecord
             if (_applicationDbContext.Records.Count(x => x.PatientId == id) > 4)
@@ -60,7 +61,8 @@ namespace PatientRecordSystem.DAL
             var patientIds = await PatientsWithSimilarDiseases(id);
             if (patientIds.Any())
             {
-                patientReport.PatientsWithSimilarDiseases = await _applicationDbContext.Patients.Where(x => patientIds.Contains(x.Id)).ToListAsync();
+                patientReport.PatientsWithSimilarDiseases = await _applicationDbContext.Patients
+                    .Where(x => patientIds.Contains(x.Id)).ToListAsync();
             }
 
             return patientReport;
@@ -126,10 +128,39 @@ namespace PatientRecordSystem.DAL
 
         #region Private methods
 
+        private async Task<decimal> BillsAverageNoOutlier(int id)
+        {
+            var billsAverageNoOutlier = default(decimal);
+            await using (var command = this._applicationDbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = @"WITH Outlier_CTE
+                                    AS
+                                    (SELECT (AVG(Bill) - STDEV(Bill) * 2) AS LowerLimit, (AVG(Bill) + STDEV(Bill) * 2) AS UpperLimit
+                                    FROM Records
+                                    WHERE PatientId = @Id)
+                                    SELECT CAST(AVG(Bill) AS DECIMAL(8, 2)) AS Average FROM Records
+                                    WHERE PatientId = @Id
+                                    AND Bill BETWEEN (SELECT LowerLimit FROM Outlier_CTE) AND (SELECT UpperLimit FROM Outlier_CTE)";
+
+                command.CommandType = CommandType.Text;
+
+                var param = new SqlParameter { ParameterName = "id", Value = id };
+                command.Parameters.Add(param);
+
+                this._applicationDbContext.Database.OpenConnection();
+
+                billsAverageNoOutlier = (decimal)command.ExecuteScalar();
+            }
+
+            return billsAverageNoOutlier;
+        }
+
         private async Task<string> MonthWithMaxVisits(int id)
         {
-            await using var command = this._applicationDbContext.Database.GetDbConnection().CreateCommand();
-            command.CommandText = @"WITH MOnthOccur_CTE ([Month])
+            string monthWithMaxVisits;
+            await using (var command = this._applicationDbContext.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = @"WITH MOnthOccur_CTE ([Month])
                                         AS
                                         (SELECT FORMAT(TimeOfEntry, 'MMMM') AS [Month] 
                                         FROM Records 
@@ -138,14 +169,17 @@ namespace PatientRecordSystem.DAL
                                         GROUP BY [Month] 
                                         ORDER BY COUNT([Month]) DESC";
 
-            command.CommandType = CommandType.Text;
+                command.CommandType = CommandType.Text;
 
-            var param = new SqlParameter { ParameterName = "id", Value = id };
-            command.Parameters.Add(param);
+                var param = new SqlParameter { ParameterName = "id", Value = id };
+                command.Parameters.Add(param);
 
-            this._applicationDbContext.Database.OpenConnection();
+                this._applicationDbContext.Database.OpenConnection();
 
-            return command.ExecuteScalar().ToString();
+                monthWithMaxVisits = command.ExecuteScalar().ToString();
+            }
+
+            return monthWithMaxVisits;
         }
 
         private async Task<List<int>> PatientsWithSimilarDiseases(int id)

@@ -15,7 +15,7 @@ namespace PatientRecordSystem.DAL.Models
 
         public decimal BillsAverage { get; set; }
 
-        //public decimal BillsAverageNoOutlier { get; set; }
+        public decimal? BillsAverageNoOutlier { get; set; }
 
         public Record FifthRecord { get; set; }
 
