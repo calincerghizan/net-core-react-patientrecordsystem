@@ -57,7 +57,6 @@ export class PatientList extends Component {
                 },
                 width: 100
             }
-
         ];
 
         return (

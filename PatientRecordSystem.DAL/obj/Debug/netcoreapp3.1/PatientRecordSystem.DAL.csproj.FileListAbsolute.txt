@@ -33,4 +33,3 @@ C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRe
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.dll
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.pdb
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.genruntimeconfig.cache
-C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.csprojAssemblyReference.cache

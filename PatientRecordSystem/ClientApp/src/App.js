@@ -5,8 +5,8 @@ import { Home } from './components/Home';
 import { AddPatient } from './components/patient/AddPatient';
 import { PatientList } from './components/patient/PatientList';
 import { MetaReport } from './components/report/MetaReport';
-import { FetchData } from './components/FetchData';
-
+import { AddRecord } from './components/record/AddRecord';
+import { RecordList } from './components/record/RecordList';
 
 import './custom.css'
 
@@ -19,9 +19,10 @@ export default class App extends Component {
         <Route exact path='/' component={Home} /> 
         <Route path='/add-patient' component={AddPatient} />
         <Route path='/patient-list' component={PatientList} />
-        <Route path='/meta-report' component={MetaReport} />
-        <Route path='/fetch-data' component={FetchData} />
-      </Layout>
+        <Route path='/meta-report' component={MetaReport} /> 
+        <Route path='/add-record' component={AddRecord} /> 
+        <Route path='/record-list' component={RecordList} /> 
+        </Layout>
     );
   }
 }
