@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using PatientRecordSystem.BLL;
 using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.BLL.Models;
@@ -54,14 +56,23 @@ namespace PatientRecordSystem.Api.Controllers
         /// <param name="record">The record model containing the data to insert</param>
         /// <returns>The created record</returns>
         [HttpPost("")]
-        public async Task<ActionResult<Record>> CreateRecord([FromBody] Record record)
+        public async Task<ActionResult<Record>> CreateRecord(JObject record)
         {
             if (record == null)
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            var insertedRecord = await _recordFacade.CreateRecord(record);
+            Record insertedRecord;
+
+            try
+            {
+                insertedRecord = await _recordFacade.CreateRecord(record.ToObject<Record>());
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
 
             return Ok(insertedRecord);
         }

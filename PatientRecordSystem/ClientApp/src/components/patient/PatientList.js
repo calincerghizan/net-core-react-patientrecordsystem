@@ -53,7 +53,7 @@ export class PatientList extends Component {
                 Header: '',
                 Cell: props => {
                     return (
-                        <Button variant="outline-info" size="sm">Report</Button>)
+                        <Button variant="outline-primary" size="sm">Report</Button>)
                 },
                 width: 100
             }

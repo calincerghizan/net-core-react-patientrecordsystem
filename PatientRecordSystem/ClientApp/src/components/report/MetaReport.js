@@ -14,7 +14,6 @@ export class MetaReport extends Component {
         }
     }
 
-
     componentDidMount() {
         const url = "/api/report/meta";
         fetch(url,
