@@ -4,10 +4,10 @@ import 'react-table-6/react-table.css';
 import { Button } from 'react-bootstrap';
 
 export class PatientList extends Component {
-    static displayName = PatientList.name;
 
     constructor(props) {
         super(props);
+        this.onReportClick = this.onReportClick.bind(this);
         this.state = {
             patients: []
         }
@@ -21,6 +21,13 @@ export class PatientList extends Component {
             }).then(response => response.json()).then(patients => {
             this.setState({ patients: patients });
         });
+    }
+
+    onReportClick(patient) {
+        const location = {
+            pathname: '/patient-report/' + patient.id
+        };
+        this.props.history.push(location);
     }
 
     render() {
@@ -51,9 +58,9 @@ export class PatientList extends Component {
             },
             {
                 Header: '',
-                Cell: props => {
+                Cell: ({ row }) => {
                     return (
-                        <Button variant="outline-primary" size="sm">Report</Button>)
+                        <Button variant="outline-primary" size="sm" onClick={(e) => this.onReportClick(row._original)}>Report</Button>)
                 },
                 width: 100
             }

@@ -1,8 +1,7 @@
 ﻿import React, { Component } from 'react';
-import { ListGroup, ListGroupItem, Badge  } from 'react-bootstrap';
+import { ListGroup, Badge  } from 'react-bootstrap';
 
 export class MetaReport extends Component {
-    static displayName = MetaReport.name;
 
     constructor(props) {
         super(props);

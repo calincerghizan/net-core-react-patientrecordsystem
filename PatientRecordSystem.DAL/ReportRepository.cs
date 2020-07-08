@@ -39,30 +39,35 @@ namespace PatientRecordSystem.DAL
                             HAVING p.Id = {0}", id)
                 .FirstOrDefaultAsync();
 
-            patientReport.Id = patientReportInit.Id;
-            patientReport.Name = patientReportInit.Name;
-            patientReport.Age = patientReportInit.Age;
-            patientReport.BillsAverage = patientReportInit.BillsAverage;
-
-            // BillsAverageNoOutlier
-            patientReport.BillsAverageNoOutlier = await BillsAverageNoOutlier(id);
-
-            // FifthRecord
-            if (_applicationDbContext.Records.Count(x => x.PatientId == id) > 4)
+            if (patientReportInit != null)
             {
-                patientReport.FifthRecord = await _applicationDbContext.Records.Where(x => x.PatientId == id).Skip(4)
-                    .FirstOrDefaultAsync();
-            }
+                patientReport.Id = patientReportInit.Id;
+                patientReport.Name = patientReportInit.Name;
+                patientReport.Age = patientReportInit.Age;
+                patientReport.BillsAverage = patientReportInit.BillsAverage;
 
-            // MonthWithMaxVisits
-            patientReport.MonthWithMaxVisits = await MonthWithMaxVisits(id);
 
-            // PatientsWithSimilarDiseases
-            var patientIds = await PatientsWithSimilarDiseases(id);
-            if (patientIds.Any())
-            {
-                patientReport.PatientsWithSimilarDiseases = await _applicationDbContext.Patients
-                    .Where(x => patientIds.Contains(x.Id)).ToListAsync();
+                // BillsAverageNoOutlier
+                patientReport.BillsAverageNoOutlier = await BillsAverageNoOutlier(id);
+
+                // FifthRecord
+                if (_applicationDbContext.Records.Count(x => x.PatientId == id) > 4)
+                {
+                    patientReport.FifthRecord = await _applicationDbContext.Records.Where(x => x.PatientId == id)
+                        .Skip(4)
+                        .FirstOrDefaultAsync();
+                }
+
+                // MonthWithMaxVisits
+                patientReport.MonthWithMaxVisits = await MonthWithMaxVisits(id);
+
+                // PatientsWithSimilarDiseases
+                var patientIds = await PatientsWithSimilarDiseases(id);
+                if (patientIds.Any())
+                {
+                    patientReport.PatientsWithSimilarDiseases = await _applicationDbContext.Patients
+                        .Where(x => patientIds.Contains(x.Id)).ToListAsync();
+                }
             }
 
             return patientReport;
@@ -130,7 +135,7 @@ namespace PatientRecordSystem.DAL
 
         private async Task<decimal> BillsAverageNoOutlier(int id)
         {
-            var billsAverageNoOutlier = default(decimal);
+            object billsAverageNoOutlier;
             await using (var command = this._applicationDbContext.Database.GetDbConnection().CreateCommand())
             {
                 command.CommandText = @"WITH Outlier_CTE
@@ -149,10 +154,17 @@ namespace PatientRecordSystem.DAL
 
                 this._applicationDbContext.Database.OpenConnection();
 
-                billsAverageNoOutlier = (decimal)command.ExecuteScalar();
+                billsAverageNoOutlier = command.ExecuteScalar();
             }
 
-            return billsAverageNoOutlier;
+            if (billsAverageNoOutlier is DBNull)
+            {
+                return default(decimal);
+            }
+            else
+            {
+                return (decimal) billsAverageNoOutlier;
+            }
         }
 
         private async Task<string> MonthWithMaxVisits(int id)

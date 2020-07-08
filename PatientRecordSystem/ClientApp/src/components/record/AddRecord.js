@@ -8,7 +8,6 @@ import {
 import Select from 'react-select';
 
 export class AddRecord extends Component {
-    static displayName = AddRecord.name;
 
     constructor(props) {
         super(props);
