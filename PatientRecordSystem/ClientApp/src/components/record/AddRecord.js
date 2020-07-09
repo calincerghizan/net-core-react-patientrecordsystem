@@ -92,6 +92,9 @@ export class AddRecord extends Component {
         else if (isNaN(parseFloat(this.state.bill))) {
             this.state.validationErrors.push("The amount of bill must be entered in correct format");
         }
+        if (this.state.timeOfEntry !== '' && isNaN(new Date(this.state.timeOfEntry))) {
+            this.state.validationErrors.push("The time of entry should be in this format yyyy-mm-dd hh:mm");
+        }
 
         return this.state.validationErrors.length > 0;
     }
@@ -175,7 +178,8 @@ export class AddRecord extends Component {
                                 name="timeOfEntry"
                                 id="timeOfEntry" 
                                 value={timeOfEntry}
-                                onChange={this.setTimeOfEntry} />
+                                onChange={this.setTimeOfEntry} 
+                                placeholder="yyyy-mm-dd hh:mm"/>
                         </FormGroup>
                     </Col>
                     <Col>
@@ -186,7 +190,7 @@ export class AddRecord extends Component {
                                 name="bill"
                                 id="bill"
                                 value={bill}
-        onChange={this.setBill} />
+                                onChange={this.setBill} />
 
                         </FormGroup>
                     </Col>
