@@ -80,25 +80,34 @@ namespace PatientRecordSystem.Api.Controllers
         /// <summary>
         /// Updates an existing record in the database
         /// </summary>
-        /// <param name="id">The record id</param>
         /// <param name="record">The record model containing the data to update</param>
         /// <returns>The updated record</returns>
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Record>> UpdateRecord(int id, [FromBody] Record record)
+        [HttpPut("")]
+        public async Task<ActionResult<Record>> UpdateRecord(JObject record)
         {
-            var recordToBeUpdated = await _recordFacade.GetRecordById(id);
+            try
+            {
+                var bllRecord = record.ToObject<Record>();
 
-            if (recordToBeUpdated == null)
-                return new StatusCodeResult(StatusCodes.Status404NotFound);
+                var recordToBeUpdated = await _recordFacade.GetRecordById(bllRecord.Id);
 
-            await _recordFacade.UpdateRecord(recordToBeUpdated, record);
+                if (recordToBeUpdated == null)
+                    return new StatusCodeResult(StatusCodes.Status404NotFound);
 
-            var updatedRecord = _recordFacade.GetRecordById(id);
+                await _recordFacade.UpdateRecord(recordToBeUpdated, bllRecord);
 
-            if (updatedRecord == null)
-                return new StatusCodeResult(StatusCodes.Status404NotFound);
+                var updatedRecord = _recordFacade.GetRecordById(bllRecord.Id);
 
-            return Ok(updatedRecord);
+                if (updatedRecord == null)
+                    return new StatusCodeResult(StatusCodes.Status404NotFound);
+
+                return Ok(updatedRecord);
+
+            }
+            catch (Exception)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

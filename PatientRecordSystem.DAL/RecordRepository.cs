@@ -31,7 +31,7 @@ namespace PatientRecordSystem.DAL
         public async Task<List<ListedRecord>> GetRecords()
         {
             var records = await _applicationDbContext.ListedRecords
-                .FromSqlRaw(@"SELECT p.Id AS PatientId, p.Name AS PatientName, r.DiseaseName, r.TimeOfEntry
+                .FromSqlRaw(@"SELECT r.Id AS Id, p.Id AS PatientId, p.Name AS PatientName, r.DiseaseName, r.TimeOfEntry
                             FROM Records r
                             LEFT JOIN Patients p
                             ON r.PatientId = p.Id").ToListAsync();

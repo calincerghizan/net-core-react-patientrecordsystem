@@ -7,6 +7,7 @@ import { PatientList } from './components/patient/PatientList';
 import { MetaReport } from './components/report/MetaReport';
 import { PatientReport } from './components/report/PatientReport';
 import { AddRecord } from './components/record/AddRecord';
+import { EditRecord } from './components/record/EditRecord';
 import { RecordList } from './components/record/RecordList';
 
 import './custom.css'
@@ -23,6 +24,7 @@ export default class App extends Component {
         <Route path='/meta-report' component={MetaReport} /> 
         <Route path='/patient-report/:id' component={PatientReport} />
         <Route path='/add-record' component={AddRecord} /> 
+        <Route path='/edit-record/:id' component={EditRecord} /> 
         <Route path='/record-list' component={RecordList} /> 
         </Layout>
     );

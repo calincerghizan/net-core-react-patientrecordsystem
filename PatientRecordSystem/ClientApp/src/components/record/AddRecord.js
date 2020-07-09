@@ -6,7 +6,8 @@ import {
     Button,
 } from 'reactstrap';
 import Select from 'react-select';
-import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast, Zoom } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 export class AddRecord extends Component {
@@ -107,7 +108,9 @@ export class AddRecord extends Component {
         event.preventDefault();
         if (this.validateEntries()) {
             this.state.validationErrors.forEach(this.toastValidationErrors);
-            this.state.validationErrors = [];
+            this.setState({
+                validationErrors: []
+            });
         } else {
 
             axios.post('api/record',
@@ -141,12 +144,12 @@ export class AddRecord extends Component {
                 </>
             <Container>
                 <h3>Add Record</h3>
-                <Form className="form" id="addRecordForm" onSubmit={this.handleSubmit}>
+                <Form className="form" onSubmit={this.handleSubmit}>
                     <Col>
                         <FormGroup> 
                             <Label><strong>Patient</strong></Label> 
                                 <Select id="id" name="id" options={this.state.patients} placeholder="Select a patient" value={patient} onChange={this.patient}/> 
-                </FormGroup>
+                        </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
@@ -194,7 +197,10 @@ export class AddRecord extends Component {
 
                         </FormGroup>
                     </Col>
-                    <Button type="Submit" color="primary">Save</Button>
+                        <Button type="Submit" id="btnSaveRecord" color="primary">Save</Button>
+                        <Link to='/'>
+                            <Button color="info"> Cancel </Button>
+                        </Link>
                 </Form>
                 </Container>
             </div>

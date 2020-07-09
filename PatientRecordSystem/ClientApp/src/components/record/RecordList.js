@@ -8,6 +8,7 @@ export class RecordList extends Component {
 
     constructor(props) {
         super(props);
+        this.onEditClick = this.onEditClick.bind(this);
         this.state = {
             records: []
         }
@@ -21,6 +22,13 @@ export class RecordList extends Component {
             }).then(response => response.json()).then(records => {
             this.setState({ records: records });
         });
+    }
+
+    onEditClick(record) {
+        const location = {
+            pathname: '/edit-record/' + record.id
+        };
+        this.props.history.push(location);
     }
 
     render() {
@@ -42,9 +50,9 @@ export class RecordList extends Component {
             },
             {
                 Header: '',
-                Cell: props => {
+                Cell: ({ row }) => {
                     return (
-                    <Button variant="outline-primary" size="sm">Edit</Button>)
+                        <Button variant="outline-primary" size="sm" onClick={(e) => this.onEditClick(row._original)}>Edit</Button>)
                 },
                 width: 100
             }
