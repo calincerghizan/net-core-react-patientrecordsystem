@@ -27,6 +27,7 @@ C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRe
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\bin\Debug\netcoreapp3.1\PatientRecordSystem.DAL.runtimeconfig.dev.json
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\bin\Debug\netcoreapp3.1\PatientRecordSystem.DAL.dll
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\bin\Debug\netcoreapp3.1\PatientRecordSystem.DAL.pdb
+C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.csprojAssemblyReference.cache
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.AssemblyInfoInputs.cache
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.AssemblyInfo.cs
 C:\CALIN\PERSONAL\PRACTICE\SOFTWARE\net-core-react-patientrecordsystem\PatientRecordSystem.DAL\obj\Debug\netcoreapp3.1\PatientRecordSystem.DAL.csproj.CoreCompileInputs.cache

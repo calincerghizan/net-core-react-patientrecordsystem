@@ -6,14 +6,29 @@ import {
     Button,
 } from 'reactstrap';
 import Select from 'react-select';
+import { ToastContainer, toast, Zoom, Bounce } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 export class AddRecord extends Component {
 
     constructor(props) {
         super(props);
+        this.clearSelection = this.clearSelection.bind(this);
+        this.setDiseaseName = this.setDiseaseName.bind(this);
+        this.setDescription = this.setDescription.bind(this);
+        this.setTimeOfEntry = this.setTimeOfEntry.bind(this);
+        this.setBill = this.setBill.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.validateEntries = this.validateEntries.bind(this);
+        this.toastValidationErrors = this.toastValidationErrors.bind(this);
         this.state = {
-            patients: []
+            patients: [],
+            validationErrors: [],
+            patient: null,
+            diseaseName: '',
+            description: '',
+            timeOfEntry: '',
+            bill: ''
         }
     }
 
@@ -34,7 +49,59 @@ export class AddRecord extends Component {
             });
     }
 
+    patient = (selectedPatient) => {
+        this.setState({ patient: selectedPatient });
+    }
+
+    setDiseaseName(event) {
+        this.setState({ diseaseName: event.target.value });
+    }
+
+    setDescription(event) {
+        this.setState({ description: event.target.value });
+    }
+
+    setTimeOfEntry(event) {
+        this.setState({ timeOfEntry: event.target.value });
+    }
+
+    setBill(event) {
+        this.setState({ bill: event.target.value });
+    }
+
+    clearSelection() {
+        this.setState({
+            patient: null,
+            diseaseName: '',
+            description: '',
+            timeOfEntry: '',
+            bill: ''
+        });
+    }
+
+    validateEntries() {
+        if (this.state.patient == null) {
+            this.state.validationErrors.push("A patient must be selected");
+        }
+        if (this.state.diseaseName === '') {
+            this.state.validationErrors.push("Disease name must be entered");
+        }
+        if (this.state.bill === '') {
+            this.state.validationErrors.push("The amount of bill must be entered");
+        }
+
+        return this.state.validationErrors.length > 0;
+    }
+
+    toastValidationErrors(item) {
+        toast.error(item);
+    }
+
     handleSubmit(event) {
+        if (this.validateEntries()) {
+            this.state.validationErrors.forEach(this.toastValidationErrors);
+            return;
+        }
         event.preventDefault();
         const formData = new FormData(event.target);
         axios.post('api/record',
@@ -46,22 +113,32 @@ export class AddRecord extends Component {
                     patientId: formData.get("id")
                 })
             .then((response) => {
-                    this.props.history.push('/record-list');
-                },
+                toast.success("Record saved");
+                this.clearSelection();
+            },
                 (error) => {
                     console.log(error);
+                    toast.error('The record was not saved');
                 });
     }
 
     render() {
+
+        const { patient, diseaseName, description, timeOfEntry, bill } = this.state;
+
         return (
+
+            <div>
+                <>
+                    <ToastContainer draggable={false} transition={Zoom} autoClose={5000}></ToastContainer>
+                </>
             <Container>
                 <h3>Add Record</h3>
-                <Form className="form" onSubmit={this.handleSubmit}>
+                <Form className="form" id="addRecordForm" onSubmit={this.handleSubmit}>
                     <Col>
                         <FormGroup> 
                             <Label><strong>Patient</strong></Label> 
-                            <Select id="id" name="id" options={this.state.patients} /> 
+                                <Select id="id" name="id" options={this.state.patients} placeholder="Select a patient" value={patient} onChange={this.patient}/> 
                 </FormGroup>
                     </Col>
                     <Col>
@@ -71,7 +148,8 @@ export class AddRecord extends Component {
                                 type="text"
                                 name="diseaseName"
                                 id="diseaseName"
-                                required/>
+                                value={diseaseName}
+                                onChange={this.setDiseaseName} />
                         </FormGroup>
                     </Col>
                     <Col>
@@ -80,7 +158,9 @@ export class AddRecord extends Component {
                             <Input
                                 type="text"
                                 name="description"
-                                id="description" />
+                                id="description" 
+                                value={description}
+                                onChange={this.setDescription}   />
                         </FormGroup>
                     </Col>
                     <Col>
@@ -89,7 +169,9 @@ export class AddRecord extends Component {
                             <Input
                                 type="text"
                                 name="timeOfEntry"
-                                id="timeOfEntry" />
+                                id="timeOfEntry" 
+                                value={timeOfEntry}
+                                onChange={this.setTimeOfEntry} />
                         </FormGroup>
                     </Col>
                     <Col>
@@ -98,12 +180,16 @@ export class AddRecord extends Component {
                             <Input
                                 type="text"
                                 name="bill"
-                                id="bill" />
+                                id="bill"
+                                    value={bill}
+                                    onChange={this.setBill} />
+
                         </FormGroup>
                     </Col>
                     <Button type="Submit" color="primary">Save</Button>
                 </Form>
-            </Container>
+                </Container>
+            </div>
         );
     }
 }
