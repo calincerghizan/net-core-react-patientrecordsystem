@@ -89,6 +89,9 @@ export class AddRecord extends Component {
         if (this.state.bill === '') {
             this.state.validationErrors.push("The amount of bill must be entered");
         }
+        else if (isNaN(parseFloat(this.state.bill))) {
+            this.state.validationErrors.push("The amount of bill must be entered in correct format");
+        }
 
         return this.state.validationErrors.length > 0;
     }
@@ -98,28 +101,29 @@ export class AddRecord extends Component {
     }
 
     handleSubmit(event) {
+        event.preventDefault();
         if (this.validateEntries()) {
             this.state.validationErrors.forEach(this.toastValidationErrors);
-            return;
+            this.state.validationErrors = [];
+        } else {
+
+            axios.post('api/record',
+                    {
+                        diseaseName: this.state.diseaseName,
+                        description: this.state.description,
+                        timeOfEntry: this.state.timeOfEntry,
+                        bill: this.state.bill,
+                        patientId: this.state.patient.value
+                    })
+                .then((response) => {
+                        toast.success("Record saved");
+                        this.clearSelection();
+                    },
+                    (error) => {
+                        console.log(error);
+                        toast.error('The record was not saved');
+                    });
         }
-        event.preventDefault();
-        const formData = new FormData(event.target);
-        axios.post('api/record',
-                {
-                    diseaseName: formData.get("diseaseName"),
-                    description: formData.get("description"),
-                    timeOfEntry: formData.get("timeOfEntry"),
-                    bill: formData.get("bill"),
-                    patientId: formData.get("id")
-                })
-            .then((response) => {
-                toast.success("Record saved");
-                this.clearSelection();
-            },
-                (error) => {
-                    console.log(error);
-                    toast.error('The record was not saved');
-                });
     }
 
     render() {
@@ -181,8 +185,8 @@ export class AddRecord extends Component {
                                 type="text"
                                 name="bill"
                                 id="bill"
-                                    value={bill}
-                                    onChange={this.setBill} />
+                                value={bill}
+        onChange={this.setBill} />
 
                         </FormGroup>
                     </Col>
