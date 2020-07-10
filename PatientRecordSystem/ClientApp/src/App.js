@@ -3,6 +3,7 @@ import { Route } from 'react-router';
 import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { AddPatient } from './components/patient/AddPatient';
+import { EditPatient } from './components/patient/EditPatient';
 import { PatientList } from './components/patient/PatientList';
 import { MetaReport } from './components/report/MetaReport';
 import { PatientReport } from './components/report/PatientReport';
@@ -20,6 +21,7 @@ export default class App extends Component {
       <Layout>
         <Route exact path='/' component={Home} /> 
         <Route path='/add-patient' component={AddPatient} />
+        <Route path='/edit-patient/:id' component={EditPatient} />
         <Route path='/patient-list' component={PatientList} />
         <Route path='/meta-report' component={MetaReport} /> 
         <Route path='/patient-report/:id' component={PatientReport} />

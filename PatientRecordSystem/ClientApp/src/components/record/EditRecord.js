@@ -1,5 +1,4 @@
 ﻿import React, { Component } from 'react';
-import Select from 'react-select';
 import axios from 'axios';
 import {
     Container, Col, Form,
@@ -115,11 +114,11 @@ export class EditRecord extends Component {
                         patientId: this.state.patientId
                     })
                 .then((response) => {
-                        toast.success("Record saved");
+                        toast.success("Record updated");
                     },
                     (error) => {
                         console.log(error);
-                        toast.error('Record not saved');
+                        toast.error('Record not updated');
                     });
         }
     }

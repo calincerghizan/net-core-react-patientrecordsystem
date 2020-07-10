@@ -56,25 +56,23 @@ namespace PatientRecordSystem.Api.Controllers
         /// <param name="record">The record model containing the data to insert</param>
         /// <returns>The created record</returns>
         [HttpPost("")]
-        public async Task<ActionResult<Record>> CreateRecord(JObject record)
+        public async Task<ActionResult<Record>> CreateRecord([FromBody] Record record)
         {
             if (record == null)
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            Record insertedRecord;
-
             try
             {
-                insertedRecord = await _recordFacade.CreateRecord(record.ToObject<Record>());
+                var insertedRecord = await _recordFacade.CreateRecord(record);
+                return Ok(insertedRecord);
             }
             catch (Exception)
             {
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            return Ok(insertedRecord);
         }
 
         /// <summary>
@@ -83,20 +81,18 @@ namespace PatientRecordSystem.Api.Controllers
         /// <param name="record">The record model containing the data to update</param>
         /// <returns>The updated record</returns>
         [HttpPut("")]
-        public async Task<ActionResult<Record>> UpdateRecord(JObject record)
+        public async Task<ActionResult<Record>> UpdateRecord([FromBody] Record record)
         {
             try
             {
-                var bllRecord = record.ToObject<Record>();
-
-                var recordToBeUpdated = await _recordFacade.GetRecordById(bllRecord.Id);
+                var recordToBeUpdated = await _recordFacade.GetRecordById(record.Id);
 
                 if (recordToBeUpdated == null)
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
 
-                await _recordFacade.UpdateRecord(recordToBeUpdated, bllRecord);
+                await _recordFacade.UpdateRecord(recordToBeUpdated, record);
 
-                var updatedRecord = _recordFacade.GetRecordById(bllRecord.Id);
+                var updatedRecord = _recordFacade.GetRecordById(record.Id);
 
                 if (updatedRecord == null)
                     return new StatusCodeResult(StatusCodes.Status404NotFound);

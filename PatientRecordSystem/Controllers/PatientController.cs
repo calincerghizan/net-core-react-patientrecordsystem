@@ -69,6 +69,7 @@ namespace PatientRecordSystem.Api.Controllers
 
             try
             {
+                //TODO Take care of the creations with Meta-Data
                 var insertedPatient = await _patientFacade.CreatePatient(patient);
                 return Ok(insertedPatient);
             }
@@ -85,25 +86,42 @@ namespace PatientRecordSystem.Api.Controllers
         /// <summary>
         /// Updates an existing patient with a given id
         /// </summary>
-        /// <param name="id">The patient id</param>
         /// <param name="patient">The patient model containing the data to update</param>
         /// <returns>The updated patient</returns>
-        [HttpPut("{id}")]
-        public async Task<ActionResult<Patient>> UpdatePatient(int id, [FromBody] Patient patient)
+        [HttpPut("")]
+        public async Task<ActionResult<Patient>> UpdatePatient([FromBody] Patient patient)
         {
-            var patientToBeUpdated = await _patientFacade.GetPatientById(id);
+            if (patient == null)
+            {
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
 
-            if (patientToBeUpdated == null)
-                return new StatusCodeResult(StatusCodes.Status404NotFound);
+            try
+            {
+                var patientToBeUpdated = await _patientFacade.GetPatientById(patient.Id);
 
-            await _patientFacade.UpdatePatient(patientToBeUpdated, patient);
+                if (patientToBeUpdated == null)
+                    return new StatusCodeResult(StatusCodes.Status404NotFound);
 
-            var updatedPatient =  _patientFacade.GetPatientById(id);
+                //TODO Take care of the updates with Meta-Data
+                await _patientFacade.UpdatePatient(patientToBeUpdated, patient);
 
-            if (updatedPatient == null)
-                return new StatusCodeResult(StatusCodes.Status404NotFound);
+                var updatedPatient = _patientFacade.GetPatientById(patient.Id);
 
-            return Ok(updatedPatient);
+                if (updatedPatient == null)
+                    return new StatusCodeResult(StatusCodes.Status404NotFound);
+
+                return Ok(updatedPatient);
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException != null && exception.InnerException.Message.Contains("duplicate key"))
+                {
+                    return BadRequest($"Official Id entered was assigned to another patient");
+                }
+
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
     }
 }

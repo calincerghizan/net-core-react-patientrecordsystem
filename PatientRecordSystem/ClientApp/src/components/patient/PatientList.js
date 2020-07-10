@@ -7,6 +7,7 @@ export class PatientList extends Component {
 
     constructor(props) {
         super(props);
+        this.onEditClick = this.onEditClick.bind(this);
         this.onReportClick = this.onReportClick.bind(this);
         this.state = {
             patients: []
@@ -21,6 +22,13 @@ export class PatientList extends Component {
             }).then(response => response.json()).then(patients => {
             this.setState({ patients: patients });
         });
+    }
+
+    onEditClick(patient) {
+        const location = {
+            pathname: '/edit-patient/' + patient.id
+        };
+        this.props.history.push(location);
     }
 
     onReportClick(patient) {
@@ -50,9 +58,9 @@ export class PatientList extends Component {
             },
             {
                 Header: '',
-                Cell: props => {
+                Cell: ({ row }) => {
                     return (
-                        <Button variant="outline-primary" size="sm">Edit</Button>)
+                        <Button variant="outline-primary" size="sm" onClick={(e) => this.onEditClick(row._original)}>Edit</Button>)
                 },
                 width: 100
             },
