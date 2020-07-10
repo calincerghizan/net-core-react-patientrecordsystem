@@ -2,4 +2,5 @@
 	<s:String x:Key="/Default/Environment/AssemblyExplorer/XmlDocument/@EntryValue">&lt;AssemblyExplorer&gt;&#xD;
   &lt;Assembly Path="C:\Users\10265773\.nuget\packages\microsoft.entityframeworkcore\3.1.5\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll" /&gt;&#xD;
   &lt;Assembly Path="C:\Users\10265773\.nuget\packages\microsoft.entityframeworkcore.sqlserver\3.1.5\lib\netstandard2.0\Microsoft.EntityFrameworkCore.SqlServer.dll" /&gt;&#xD;
+  &lt;Assembly Path="C:\Program Files\dotnet\shared\Microsoft.AspNetCore.App\3.1.5\Microsoft.AspNetCore.Mvc.Core.dll" /&gt;&#xD;
 &lt;/AssemblyExplorer&gt;</s:String></wpf:ResourceDictionary>

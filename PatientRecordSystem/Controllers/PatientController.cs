@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using PatientRecordSystem.BLL;
 using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.BLL.Models;
@@ -66,9 +67,19 @@ namespace PatientRecordSystem.Api.Controllers
                 return new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
 
-            var insertedPatient = await _patientFacade.CreatePatient(patient);
-
-            return Ok(insertedPatient);
+            try
+            {
+                var insertedPatient = await _patientFacade.CreatePatient(patient);
+                return Ok(insertedPatient);
+            }
+            catch (Exception exception)
+            {
+                if (exception.InnerException != null && exception.InnerException.Message.Contains("duplicate key"))
+                {
+                    return BadRequest($"Official Id entered was assigned to another patient");
+                }
+                return new StatusCodeResult(StatusCodes.Status500InternalServerError);
+            }
         }
 
         /// <summary>

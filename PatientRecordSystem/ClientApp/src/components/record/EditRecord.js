@@ -78,16 +78,16 @@ export class EditRecord extends Component {
 
     validateEntries() {
         if (this.state.diseaseName === '') {
-            this.state.validationErrors.push("Disease name must be entered");
+            this.state.validationErrors.push("Disease Name must be entered");
         }
         if (this.state.bill === '') {
-            this.state.validationErrors.push("The amount of bill must be entered");
+            this.state.validationErrors.push("Bill must be entered");
         }
         else if (isNaN(parseFloat(this.state.bill))) {
-            this.state.validationErrors.push("The amount of bill must be entered in correct format");
+            this.state.validationErrors.push("Bill must be entered in correct format");
         }
         if (this.state.timeOfEntry !== '' && isNaN(new Date(this.state.timeOfEntry))) {
-            this.state.validationErrors.push("The time of entry should be in this format yyyy-mm-dd hh:mm");
+            this.state.validationErrors.push("Time Of Entry must be in format yyyy-mm-dd hh:mm");
         }
 
         return this.state.validationErrors.length > 0;
@@ -119,7 +119,7 @@ export class EditRecord extends Component {
                     },
                     (error) => {
                         console.log(error);
-                        toast.error('The record was not saved');
+                        toast.error('Record not saved');
                     });
         }
     }
@@ -193,7 +193,7 @@ export class EditRecord extends Component {
 
                             </FormGroup>
                         </Col>
-                        <Button type="Submit" id="btnSaveRecord" color="primary">Save</Button>
+                        <Button type="Submit" id="btnSave" color="primary">Save</Button>
                         <Link to='/record-list'>
                             <Button color="info"> Cancel </Button>
                         </Link>
