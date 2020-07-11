@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace PatientRecordSystem.Api
+namespace PatientRecordSystem
 {
     public class Program
     {

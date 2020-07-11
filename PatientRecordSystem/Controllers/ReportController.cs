@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PatientRecordSystem.BLL;
 using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.BLL.Models;
 
-namespace PatientRecordSystem.Api.Controllers
+namespace PatientRecordSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

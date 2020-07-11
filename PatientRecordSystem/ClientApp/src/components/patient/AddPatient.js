@@ -68,8 +68,7 @@ export class AddPatient extends Component {
             name: '',
             officialId: '',
             dateOfBirth: '',
-            email: '',
-            metData: []
+            email: ''
         });
     }
 
@@ -101,7 +100,7 @@ export class AddPatient extends Component {
     }
 
     handleAddMetaDataClick(event) {
-        event.preventDefault();
+        //event.preventDefault();
         if (this.state.key.trim() !== '' && this.state.value.trim() !== '') {
             const actualMetaData = this.state.metaData;
             actualMetaData.push({
@@ -134,6 +133,7 @@ export class AddPatient extends Component {
                 .then((response) => {
                         toast.success("Patient saved");
                         this.clearSelection();
+                        this.setState({ metaData: [] });
                     },
                     (error) => {
                         console.log(error);

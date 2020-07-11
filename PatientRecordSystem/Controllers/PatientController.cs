@@ -1,17 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.TagHelpers;
-using PatientRecordSystem.BLL;
 using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.BLL.Models;
 
-namespace PatientRecordSystem.Api.Controllers
+namespace PatientRecordSystem.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -69,7 +64,6 @@ namespace PatientRecordSystem.Api.Controllers
 
             try
             {
-                //TODO Take care of the creations with Meta-Data
                 var insertedPatient = await _patientFacade.CreatePatient(patient);
                 return Ok(insertedPatient);
             }

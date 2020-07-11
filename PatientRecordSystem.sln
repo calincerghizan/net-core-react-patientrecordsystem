@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientRecordSystem.Api", "PatientRecordSystem\PatientRecordSystem.Api.csproj", "{8BA95CCA-69E4-47B1-B91D-9320AE8EB57F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientRecordSystem", "PatientRecordSystem\PatientRecordSystem.csproj", "{8BA95CCA-69E4-47B1-B91D-9320AE8EB57F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientRecordSystem.BLL", "PatientRecordSystem.BLL\PatientRecordSystem.BLL.csproj", "{BB105AF4-FF10-4EF8-8B7D-693AE63894C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientRecordSystem.BLL", "PatientRecordSystem.BLL\PatientRecordSystem.BLL.csproj", "{BB105AF4-FF10-4EF8-8B7D-693AE63894C7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientRecordSystem.DAL", "PatientRecordSystem.DAL\PatientRecordSystem.DAL.csproj", "{32E20ABB-5AE4-4045-B27D-A31E7CF25EF9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientRecordSystem.DAL", "PatientRecordSystem.DAL\PatientRecordSystem.DAL.csproj", "{32E20ABB-5AE4-4045-B27D-A31E7CF25EF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

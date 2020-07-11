@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace PatientRecordSystem.DAL.Models
+﻿namespace PatientRecordSystem.DAL.Models
 {
     public class KeyOccurrence
     {

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using PatientRecordSystem.BLL.Models;
 
-namespace PatientRecordSystem.Api
+namespace PatientRecordSystem
 {
     public class MappingProfile : Profile
     {

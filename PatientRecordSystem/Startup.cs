@@ -11,7 +11,7 @@ using PatientRecordSystem.BLL.Interfaces;
 using PatientRecordSystem.DAL;
 using PatientRecordSystem.DAL.Interfaces;
 
-namespace PatientRecordSystem.Api
+namespace PatientRecordSystem
 {
     public class Startup
     {

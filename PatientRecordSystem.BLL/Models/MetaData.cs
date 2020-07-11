@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace PatientRecordSystem.BLL.Models
+﻿namespace PatientRecordSystem.BLL.Models
 {
     public class MetaData
     {
