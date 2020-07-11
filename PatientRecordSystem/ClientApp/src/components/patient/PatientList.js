@@ -42,6 +42,7 @@ export class PatientList extends Component {
         const columns = [
             {
                 Header: 'Patient name',
+                filterable: true,
                 accessor: 'name'
             },
             {
@@ -60,7 +61,7 @@ export class PatientList extends Component {
                 Header: '',
                 Cell: ({ row }) => {
                     return (
-                        <Button variant="outline-primary" size="sm" onClick={(e) => this.onEditClick(row._original)}>Edit</Button>)
+                        <Button variant="primary" size="sm" onClick={(e) => this.onEditClick(row._original)}>Edit</Button>)
                 },
                 width: 100
             },
@@ -68,7 +69,7 @@ export class PatientList extends Component {
                 Header: '',
                 Cell: ({ row }) => {
                     return (
-                        <Button variant="outline-primary" size="sm" onClick={(e) => this.onReportClick(row._original)}>Report</Button>)
+                        <Button variant="info" size="sm" onClick={(e) => this.onReportClick(row._original)}>Report</Button>)
                 },
                 width: 100
             }

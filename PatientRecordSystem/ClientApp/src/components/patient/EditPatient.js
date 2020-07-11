@@ -26,6 +26,9 @@ export class EditPatient extends Component {
         this.validateEntries = this.validateEntries.bind(this);
         this.toastValidationErrors = this.toastValidationErrors.bind(this);
         this.handleAddMetaDataClick = this.handleAddMetaDataClick.bind(this);
+        this.renderEditable = this.renderEditable.bind(this);
+        this.handleInputChange = this.handleInputChange.bind(this);
+        this.onDeleteClick = this.onDeleteClick.bind(this);
         this.state = {
             id: '',
             name: '',
@@ -123,6 +126,7 @@ export class EditPatient extends Component {
         }
     }
 
+
     handleSubmit(event) {
         event.preventDefault();
         if (this.validateEntries()) {
@@ -152,6 +156,34 @@ export class EditPatient extends Component {
         }
     }
 
+    renderEditable = cellInfo => {
+        const cellValue = this.state.metaData[cellInfo.index][cellInfo.column.id];
+
+        return (
+        <Input
+        name="input"
+        type="text"
+        value={cellValue} 
+        onChange={this.handleInputChange.bind(null, cellInfo)} />);
+    }
+
+    handleInputChange = (cellInfo, event) => {
+        const auxMetaData = [...this.state.metaData];
+        auxMetaData[cellInfo.index][cellInfo.column.id] = event.target.value;
+        this.setState({ metaData: auxMetaData });
+    };
+
+    onDeleteClick(rowMetaData) {
+        alert("test");
+        console.log(rowMetaData);
+        const auxMetaData = [...this.state.metaData];
+        const index = auxMetaData.indexOf(rowMetaData);
+        if (index !== -1) {
+            auxMetaData.splice(index, 1);
+            this.setState({ metaData: auxMetaData });
+        }
+    }
+
     render() {
 
         const columns = [
@@ -162,12 +194,23 @@ export class EditPatient extends Component {
             },
             {
                 Header: 'Key',
-                accessor: 'key'
+                filterable: true,
+                accessor: 'key',
+                Cell: this.renderEditable
             },
             {
                 Header: 'Value',
-                accessor: 'value'
-            }
+                accessor: 'value',
+                Cell: this.renderEditable
+            },
+            {
+                Header: '',
+                Cell: ({ row }) => {
+                    return (
+                        <Button color="danger" size="sm" onClick={(e) => this.onDeleteClick(row._original)}>Delete</Button>)
+    },
+    width: 100
+}
         ];
 
         const { name, officialId, dateOfBirth, email, key, value } = this.state;
@@ -267,7 +310,7 @@ export class EditPatient extends Component {
                         </Col>
                         <Button type="Submit" id="btnSave" color="primary">Save</Button>
                         <Link to='/patient-list'>
-                            <Button color="info"> Cancel </Button>
+                            <Button color="danger"> Cancel </Button>
                         </Link>
                     </Form>
                 </Container>

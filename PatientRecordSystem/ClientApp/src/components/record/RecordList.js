@@ -52,7 +52,7 @@ export class RecordList extends Component {
                 Header: '',
                 Cell: ({ row }) => {
                     return (
-                        <Button variant="outline-primary" size="sm" onClick={(e) => this.onEditClick(row._original)}>Edit</Button>)
+                        <Button variant="primary" size="sm" onClick={(e) => this.onEditClick(row._original)}>Edit</Button>)
                 },
                 width: 100
             }

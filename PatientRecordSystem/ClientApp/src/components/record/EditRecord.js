@@ -194,7 +194,7 @@ export class EditRecord extends Component {
                         </Col>
                         <Button type="Submit" id="btnSave" color="primary">Save</Button>
                         <Link to='/record-list'>
-                            <Button color="info"> Cancel </Button>
+                            <Button color="danger"> Cancel </Button>
                         </Link>
                     </Form> 
                 </Container> 

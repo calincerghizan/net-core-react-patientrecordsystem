@@ -147,6 +147,7 @@ export class AddPatient extends Component {
         const columns = [
             {
                 Header: 'Key',
+                filterable: true,
                 accessor: 'key'
             },
             {
@@ -252,7 +253,7 @@ export class AddPatient extends Component {
                         </Col>
                         <Button type="Submit" id="btnSave" color="primary">Save</Button>
                         <Link to='/'>
-                            <Button color="info"> Cancel </Button>
+                            <Button color="danger"> Cancel </Button>
                         </Link>
                     </Form>
                 </Container>
