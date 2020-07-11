@@ -84,10 +84,10 @@ export class AddRecord extends Component {
         if (this.state.patient == null) {
             this.state.validationErrors.push("Patient must be selected");
         }
-        if (this.state.diseaseName === '') {
+        if (this.state.diseaseName.trim() === '') {
             this.state.validationErrors.push("Disease Name must be entered");
         }
-        if (this.state.bill === '') {
+        if (this.state.bill.trim() === '') {
             this.state.validationErrors.push("Bill must be entered");
         }
         else if (isNaN(parseFloat(this.state.bill))) {

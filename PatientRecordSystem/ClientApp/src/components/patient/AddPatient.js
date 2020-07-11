@@ -1,10 +1,12 @@
 ﻿import React, { Component } from 'react';
 import axios from 'axios';
 import {
-    Container, Col, Form,
+    Container, Col, Row, Form,
     FormGroup, Label, Input,
     Button,
 } from 'reactstrap';
+import ReactTable from 'react-table-6';
+import 'react-table-6/react-table.css';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast, Zoom } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -18,15 +20,20 @@ export class AddPatient extends Component {
         this.setOfficialId = this.setOfficialId.bind(this);
         this.setDateOfBirth = this.setDateOfBirth.bind(this);
         this.setEmail = this.setEmail.bind(this);
+        this.setKey = this.setKey.bind(this);
+        this.setValue = this.setValue.bind(this);
         this.emailIsValid = this.emailIsValid.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.validateEntries = this.validateEntries.bind(this);
         this.toastValidationErrors = this.toastValidationErrors.bind(this);
+        this.handleAddMetaDataClick = this.handleAddMetaDataClick.bind(this);
         this.state = {
             name: '',
             officialId: '',
             dateOfBirth: '',
             email: '',
+            key: '',
+            value: '',
             metaData: [],
             validationErrors: []
         }
@@ -48,12 +55,21 @@ export class AddPatient extends Component {
         this.setState({ email: event.target.value });
     }
 
+    setKey(event) {
+        this.setState({ key: event.target.value });
+    }
+
+    setValue(event) {
+        this.setState({ value: event.target.value });
+    }
+
     clearSelection() {
         this.setState({
             name: '',
             officialId: '',
             dateOfBirth: '',
-            email: ''
+            email: '',
+            metData: []
         });
     }
 
@@ -64,10 +80,10 @@ export class AddPatient extends Component {
     }
 
     validateEntries() {
-        if (this.state.name === '') {
+        if (this.state.name.trim() === '') {
             this.state.validationErrors.push("Patient Name must be entered");
         }
-        if (this.state.officialId === '') {
+        if (this.state.officialId.trim() === '') {
             this.state.validationErrors.push("Official Id must be entered");
         }
         if (this.state.dateOfBirth !== '' && isNaN(new Date(this.state.dateOfBirth))) {
@@ -84,6 +100,20 @@ export class AddPatient extends Component {
         toast.error(item);
     }
 
+    handleAddMetaDataClick(event) {
+        event.preventDefault();
+        if (this.state.key.trim() !== '' && this.state.value.trim() !== '') {
+            const actualMetaData = this.state.metaData;
+            actualMetaData.push({
+                key: this.state.key,
+                value: this.state.value
+            });
+            this.setState({ metaData: actualMetaData, key: '', value: '' });
+        } else {
+            toast.error("Meta Data must have both key and value");
+        }
+    }
+
     handleSubmit(event) {
         event.preventDefault();
         if (this.validateEntries()) {
@@ -98,7 +128,8 @@ export class AddPatient extends Component {
                         name: this.state.name,
                         officialId: this.state.officialId,
                         dateOfBirth: this.state.dateOfBirth,
-                        email: this.state.email
+                        email: this.state.email,
+                        metaData: this.state.metaData
                     })
                 .then((response) => {
                         toast.success("Patient saved");
@@ -113,7 +144,18 @@ export class AddPatient extends Component {
 
     render() {
 
-        const { name, officialId, dateOfBirth, email } = this.state;
+        const columns = [
+            {
+                Header: 'Key',
+                accessor: 'key'
+            },
+            {
+                Header: 'Value',
+                accessor: 'value'
+            }
+        ];
+
+        const { name, officialId, dateOfBirth, email, key, value } = this.state;
 
         return (
 
@@ -168,6 +210,44 @@ export class AddPatient extends Component {
                                     value={email}
                                     onChange={this.setEmail} />
 
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label><strong>Meta data</strong></Label>
+                                <Container>
+                                    <Col>
+                                        <Row xs="3"> 
+                                            <Col>
+                                                <Label><strong>Key</strong></Label>
+                                                <Input
+                                                    type="text"
+                                                    name="key"
+                                                    id="key"
+                                                    value={key}
+                                                    onChange={this.setKey} />
+                                            </Col>
+                                            <Col>
+                                                <Label><strong>Value</strong></Label>
+                                                <Input
+                                                    type="text"
+                                                    name="value"
+                                                    id="value"
+                                                    value={value}
+                                                    onChange={this.setValue} />
+                                            </Col> 
+                                            <Col>
+                                                <Label> </Label>
+                                                <Button type="button" id="btnAddMetaData" color="primary" onClick={this.handleAddMetaDataClick}>Add</Button>
+                                            </Col> 
+                                        </Row>
+                                    </Col>
+                                </Container>
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <ReactTable data={this.state.metaData} columns={columns} defaultPageSize={5} />
                             </FormGroup>
                         </Col>
                         <Button type="Submit" id="btnSave" color="primary">Save</Button>

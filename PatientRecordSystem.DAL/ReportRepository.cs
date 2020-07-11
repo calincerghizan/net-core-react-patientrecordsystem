@@ -95,7 +95,9 @@ namespace PatientRecordSystem.DAL
 
                 this._applicationDbContext.Database.OpenConnection();
 
-                metaReport.MetaUsedAverage = (decimal) command.ExecuteScalar();
+                var metaUsedAverage = command.ExecuteScalar();
+
+                metaReport.MetaUsedAverage = metaUsedAverage is DBNull ? default(decimal) : (decimal)metaUsedAverage;
             }
 
             // MetaUsedMax
@@ -115,7 +117,9 @@ namespace PatientRecordSystem.DAL
 
                 this._applicationDbContext.Database.OpenConnection();
 
-                metaReport.MetaUsedMax = (int) command.ExecuteScalar();
+                var metaUsedMax = command.ExecuteScalar();
+
+                metaReport.MetaUsedMax = metaUsedMax is DBNull ? default(int) : (int) metaUsedMax;
             }
 
             // TopThreeUsedKeys
@@ -157,14 +161,7 @@ namespace PatientRecordSystem.DAL
                 billsAverageNoOutlier = command.ExecuteScalar();
             }
 
-            if (billsAverageNoOutlier is DBNull)
-            {
-                return default(decimal);
-            }
-            else
-            {
-                return (decimal) billsAverageNoOutlier;
-            }
+            return billsAverageNoOutlier is DBNull ? default(decimal) : (decimal) billsAverageNoOutlier;
         }
 
         private async Task<string> MonthWithMaxVisits(int id)
