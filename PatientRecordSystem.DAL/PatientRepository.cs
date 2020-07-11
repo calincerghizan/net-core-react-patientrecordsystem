@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -51,21 +52,57 @@ namespace PatientRecordSystem.DAL
         ///<inheritdoc/>
         public async Task<int> UpdatePatient(Patient patient)
         {
-            var currentPatient = _applicationDbContext.Patients.FirstOrDefault(x => x.Id == patient.Id);
-            var currentMetaDataList = _applicationDbContext.MetaData.Where(x => x.PatientId == patient.Id).ToList();
+            var existingPatient = await _applicationDbContext.Patients
+                .Where(p => p.Id == patient.Id)
+                .Include(p => p.MetaData)
+                .SingleOrDefaultAsync();
 
-            _applicationDbContext.Entry(currentPatient).CurrentValues.SetValues(patient);
-
-            for (var i = 0; i < currentMetaDataList.Count; i++)
+            if (existingPatient != null)
             {
-                _applicationDbContext.Entry(currentMetaDataList[i]).CurrentValues.SetValues(patient.MetaData[i]);
-            }
+                // Update patient
+                _applicationDbContext.Entry(existingPatient).CurrentValues.SetValues(patient);
 
-            var auxCurrentMetaDataListCount = currentMetaDataList.Count;
+                // Delete meta data
+                foreach (var existingMetaData in existingPatient.MetaData)
+                {
+                    if (patient.MetaData.All(mt => mt.Id != existingMetaData.Id))
+                    {
+                        _applicationDbContext.MetaData.Remove(existingMetaData);
+                    }
+                }
 
-            if (currentMetaDataList.Count < patient.MetaData.Count)
-            {
-                _applicationDbContext.MetaData.AddRange(patient.MetaData.Skip(currentMetaDataList.Count));
+                var auxMetaData = new List<MetaData>();
+
+                // Update and insert meta data
+                foreach (var metaData in patient.MetaData)
+                {
+                    metaData.PatientId = existingPatient.Id;
+
+                    var existingMetaData = existingPatient.MetaData.SingleOrDefault(mt => mt.Id == metaData.Id);
+
+                    if (existingMetaData != null)
+                    {
+                        // Update meta data
+                        _applicationDbContext.Entry(existingMetaData).CurrentValues.SetValues(metaData);
+                    }
+                    else
+                    {
+                        // Insert meta data
+                        var newMetaData = new MetaData
+                        {
+                            Key = metaData.Key,
+                            Value = metaData.Value,
+                            PatientId = metaData.PatientId
+                        };
+
+                        auxMetaData.Add(newMetaData);
+                    }
+                }
+
+                if (auxMetaData.Count > 0)
+                {
+                    existingPatient.MetaData.AddRange(auxMetaData);
+                }
             }
 
             return await _applicationDbContext.SaveChangesAsync();

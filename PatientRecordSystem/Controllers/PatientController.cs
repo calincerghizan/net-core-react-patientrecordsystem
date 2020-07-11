@@ -97,8 +97,7 @@ namespace PatientRecordSystem.Controllers
                 if (patientToBeUpdated == null)
                     return new StatusCodeResult(StatusCodes.Status404NotFound);
 
-                //TODO Take care of the updates with Meta-Data
-                await _patientFacade.UpdatePatient(patientToBeUpdated, patient);
+                await _patientFacade.UpdatePatient(patient);
 
                 var updatedPatient = _patientFacade.GetPatientById(patient.Id);
 

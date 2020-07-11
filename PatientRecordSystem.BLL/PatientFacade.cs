@@ -56,36 +56,11 @@ namespace PatientRecordSystem.BLL
         }
 
         ///<inheritdoc/>
-        public async Task UpdatePatient(Patient patientToBeUpdated, Patient patient)
+        public async Task UpdatePatient(Patient patient)
         {
-            var dalPatientToBeUpdated = _mapper.Map<Patient, DAL.Entities.Patient>(patientToBeUpdated);
             var dalPatient = _mapper.Map<Patient, DAL.Entities.Patient>(patient);
 
-            dalPatientToBeUpdated.Name = dalPatient.Name;
-            dalPatientToBeUpdated.OfficialId = dalPatient.OfficialId;
-            dalPatientToBeUpdated.DateOfBirth = dalPatient.DateOfBirth;
-            dalPatientToBeUpdated.Email = dalPatient.Email;
-
-            var metaDataAux = dalPatientToBeUpdated.MetaData;
-            
-            dalPatientToBeUpdated.MetaData = dalPatient.MetaData;
-
-            for (var i = 0; i < metaDataAux.Count; i++)
-            {
-                dalPatientToBeUpdated.MetaData[i].Id = metaDataAux[i].Id;
-                dalPatientToBeUpdated.MetaData[i].PatientId = metaDataAux[i].PatientId;
-                dalPatientToBeUpdated.MetaData[i].Patient = metaDataAux[i].Patient;
-            }
-
-            if (metaDataAux.Count < dalPatient.MetaData.Count)
-            {
-                for (var i = metaDataAux.Count; i < dalPatient.MetaData.Count; i++)
-                {
-                    dalPatientToBeUpdated.MetaData[i].PatientId = dalPatient.MetaData[0].PatientId;
-                }
-            }
-
-            await _patientRepository.UpdatePatient(dalPatientToBeUpdated);
+            await _patientRepository.UpdatePatient(dalPatient);
         }
     }
 }

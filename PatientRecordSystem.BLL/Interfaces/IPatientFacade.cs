@@ -29,9 +29,8 @@ namespace PatientRecordSystem.BLL.Interfaces
         /// <summary>
         /// Updates an existing patient
         /// </summary>
-        /// <param name="patientToBeUpdated">The patient to be updated</param>
         /// <param name="patient">The patient model containing the new data to update</param>
         /// <returns>The updated patient</returns>
-        Task UpdatePatient(Patient patientToBeUpdated, Patient patient);
+        Task UpdatePatient(Patient patient);
     }
 }
